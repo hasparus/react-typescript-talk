@@ -2,6 +2,7 @@
 import { css, jsx } from "@emotion/core";
 import styled, { StyledComponent } from "@emotion/styled";
 import React, { useState, useCallback } from "react";
+import { useLocalStorage } from "react-use";
 
 import { render } from "./talkUtils";
 import { Hello } from "./1.StatelessComponent";
@@ -49,14 +50,22 @@ const Arrow = (props: ArrowProps) => (
 
 const steps = [
   <Hello author="hasparus" />,
-  <UnsplashImg />,
-  "aw",
+  "Why should I use TypeScript?",
+  <h1>Feelings</h1>,
+  <UnsplashImg
+    id="AkTBCrrX0dI"
+    photographer="abi ismail"
+  />,
+  <UnsplashImg id="Ju-ITc1Cc0w" photographer="J W" />,
+  <div>
+    <UnsplashImg id="Ju-ITc1Cc0w" photographer="J W" />
+  </div>,
 ];
 const mod = (x: number) =>
   (x + steps.length) % steps.length;
 
 function Introduction() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useLocalStorage("step", 0);
   const goToNext = useCallback(
     () => setStep(x => mod(x + 1)),
     []
