@@ -1,2 +1,4 @@
-# react-typescript-talk
-Created with CodeSandbox
+# Usage
+
+Switch `Current Module View` on and start presentation :)
+Good luck 👍
