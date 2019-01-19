@@ -12,6 +12,7 @@
     "jsx": "react",
     "moduleResolution": "node",
     "rootDir": "src",
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,

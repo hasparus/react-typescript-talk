@@ -4,6 +4,7 @@ import React, {
   useMemo,
 } from "react";
 import { render } from "./talkUtils";
+import { ErrorMessage } from "./2.StatefulClass";
 
 type Props = {
   onSubmit: (_: SimpleUser) => void;
@@ -70,30 +71,7 @@ export function LoginForm({ onSubmit }: Props) {
 
 render(<LoginForm onSubmit={console.log} />);
 
-/* 
-  code below would be in different files 
-*/
-
-// ErrorMessage.tsx
-function ErrorMessage({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <p
-      style={{
-        color: "red",
-        height: "2em",
-        maxWidth: "100%",
-      }}
-    >
-      {children}
-    </p>
-  );
-}
-
-// Email.ts
+// email.ts
 
 type Brand<T, B extends string> = T & { __brand: B };
 

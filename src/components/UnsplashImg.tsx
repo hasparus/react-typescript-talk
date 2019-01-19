@@ -1,7 +1,9 @@
 // @jsx jsx
 import { css, jsx } from "@emotion/core";
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useRef, useEffect } from "react";
+
+import { Color } from "./color";
 
 // Workaround. Jsx gets thrown out if used only in pragma :>
 // This works in normal code without issues.
@@ -15,38 +17,71 @@ type UnsplashImgProps = {
 
 export const UnsplashImg: React.FunctionComponent<
   UnsplashImgProps
-> = ({ id, size, photographer, ...rest }) => (
-  <div
-    css={css`
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    `}
-  >
-    <img
-      src={`https://source.unsplash.com/${id}/${size}`}
+> = ({ id, width, height, photographer, ...rest }) => {
+  const image = useRef<HTMLImageElement>(null);
+  const size = `${width}x${height}`;
+
+  useEffect(
+    () => {
+      if (image.current) {
+        const { current } = image;
+
+        if (!current.complete) {
+          current.style.opacity = "0";
+          current.addEventListener("load", () => {
+            current.style.opacity = "1";
+          });
+        }
+      }
+    },
+    [image]
+  );
+
+  return (
+    <div
       css={{
-        maxWidth: "100vw",
-      }}
-      {...rest}
-    />
-    <small
-      css={{
-        paddingTop: "0.5em",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      Photo by{" "}
-      <a
-        href={`https://unsplash.com/photos/${id}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText`}
+      <div
+        css={{
+          width,
+          height: `calc(100vw / ${width} * ${height})`,
+          background: Color.SuperLightGray,
+          maxWidth: "100vw",
+          maxHeight: height,
+        }}
       >
-        {photographer}
-      </a>{" "}
-      on Unsplash
-    </small>
-  </div>
-);
+        <img
+          ref={image}
+          src={`https://source.unsplash.com/${id}/${size}`}
+          css={{
+            maxWidth: "100vw",
+          }}
+          {...rest}
+        />
+      </div>
+      <small
+        css={{
+          paddingTop: "0.5em",
+        }}
+      >
+        Photo by{" "}
+        <a
+          href={`https://unsplash.com/photos/${id}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText`}
+        >
+          {photographer}
+        </a>{" "}
+        on Unsplash
+      </small>
+    </div>
+  );
+};
 
 UnsplashImg.defaultProps = {
-  size: "",
+  width: 1200,
+  height: 700,
 };

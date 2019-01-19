@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+import { Color } from "../components";
+
 const globalStyles = css`
   html,
   body,
@@ -32,13 +34,8 @@ const SlideStylesContainer = styled.div`
     }
   }
   form {
-    width: 389px;
-
-    display: flex;
-    flex-direction: column;
-
     button[type="submit"] {
-      align-self: flex-end;
+      float: right;
       margin: 0.5em;
     }
   }
@@ -50,6 +47,7 @@ const SlideStylesContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    text-align: right;
 
     span {
       width: 6em;
@@ -65,16 +63,16 @@ const SlideStylesContainer = styled.div`
     font-family: inherit;
     padding: 0;
     border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid ${Color.LightGray};
     :focus {
       outline: none;
       border-color: black;
-      background: rgba(20, 20, 20, 0.05);
+      background: ${Color.SuperLightGray};
       border-radius: 5px 5px 0 0;
     }
   }
   button {
-    background: rgba(20, 20, 20, 0.05);
+    background: ${Color.SuperLightGray};
     color: black;
     font-size: inherit;
     font-family: inherit;
@@ -116,9 +114,14 @@ function getRoot() {
 }
 
 function getRenderedModuleName() {
-  return new Error().stack
-    .split("\n")[3]
-    .match(/src\/(.+\.tsx)/)[1];
+  const stack = new Error().stack;
+  if (stack) {
+    return stack
+      .match(/src\/(.+\.tsx)/g)[2]
+      .split("/")
+      .pop(); // Array.prototype.pop returns last element of array
+  }
+  return null;
 }
 
 export function render(node: React.ReactNode) {

@@ -86,7 +86,7 @@ render(<LoginForm onSubmit={console.log} />);
 */
 
 // ErrorMessage.tsx
-function ErrorMessage({
+export function ErrorMessage({
   children,
 }: {
   children: React.ReactNode;

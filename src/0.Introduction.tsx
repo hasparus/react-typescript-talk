@@ -1,12 +1,16 @@
 // @jsx jsx
 import { css, jsx } from "@emotion/core";
-import styled, { StyledComponent } from "@emotion/styled";
-import React, { useState, useCallback } from "react";
+import styled from "@emotion/styled";
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { useLocalStorage } from "react-use";
 
 import { render } from "./talkUtils";
 import { Hello } from "./1.StatelessComponent";
-import { UnsplashImg } from "./components";
+import { UnsplashImg, TypeScriptLogo } from "./components";
 
 // *Open this one in separate full screen tab.*
 // I don't want to show hooks before talking about stateless components.
@@ -24,7 +28,7 @@ type ArrowProps = Omit<AnchorProps, "href"> &
     | { left: true; right?: never }
     | { right: true; left?: never });
 
-const Arrow = (props: ArrowProps) => (
+const Arrow = ({ left, right: _, ...rest }: ArrowProps) => (
   <a
     href="javascript:;"
     css={css`
@@ -42,24 +46,41 @@ const Arrow = (props: ArrowProps) => (
       }
       outline: none;
     `}
-    {...props}
+    {...rest}
   >
-    {props.left ? "<" : ">"}
+    {left ? "<" : ">"}
   </a>
 );
 
 const steps = [
-  <Hello author="hasparus" />,
-  "Why should I use TypeScript?",
+  <Hello />,
+  "Why do I use TypeScript?",
   <h1>Feelings</h1>,
   <UnsplashImg
     id="AkTBCrrX0dI"
     photographer="abi ismail"
   />,
   <UnsplashImg id="Ju-ITc1Cc0w" photographer="J W" />,
-  <div>
+  <div
+    css={{
+      position: "relative",
+    }}
+  >
     <UnsplashImg id="Ju-ITc1Cc0w" photographer="J W" />
+    <TypeScriptLogo
+      css={{
+        position: "absolute",
+        top: "52%",
+        width: "calc(100vw / 1200 * 80)",
+        maxWidth: "80px",
+        left: "55%",
+      }}
+    />
   </div>,
+  <UnsplashImg
+    id="sRL3k5jo9OQ"
+    photographer="Brandon Zack"
+  />,
 ];
 const mod = (x: number) =>
   (x + steps.length) % steps.length;
@@ -71,7 +92,11 @@ function Introduction() {
     []
   );
   const goToPrevious = useCallback(
-    () => setStep(x => mod(x - 1)),
+    () =>
+      setStep(x => {
+        console.log(mod(x - 1));
+        return mod(x - 1);
+      }),
     []
   );
   const handleInputValueChange = useCallback(
@@ -79,6 +104,31 @@ function Introduction() {
       setStep(mod(Number(event.target.value))),
     []
   );
+  useEffect(() => {
+    const handleKeydown = event => {
+      switch (event.key) {
+        case "ArrowLeft":
+          goToPrevious();
+          break;
+
+        case " ":
+        case "ArrowRight":
+          goToNext();
+          break;
+        default:
+          break;
+      }
+    };
+
+    document.addEventListener("keydown", handleKeydown);
+
+    return () => {
+      document.removeEventListener(
+        "keydown",
+        handleKeydown
+      );
+    };
+  }, []);
 
   return (
     <div>
