@@ -40,9 +40,13 @@ function Formique<Values>({
 }: FormiqueProps<Values>) {
   const [values, setValues] = useState(initialValues);
 
-  const handleSubmit = useCallback(() => onSubmit(values), [
-    values,
-  ]);
+  const handleSubmit = useCallback(
+    event => {
+      event.preventDefault();
+      onSubmit(values);
+    },
+    [values]
+  );
 
   const childProps = useMemo(
     () => ({
@@ -148,6 +152,7 @@ render(
             <span>Fun:</span>
             <Input name="isMeetupFun" />
           </label>
+          <button type="submit">Submit</button>
         </form>
       )}
     </Formique>
