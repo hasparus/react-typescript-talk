@@ -1,11 +1,6 @@
 // @jsx jsx
 import { css, jsx } from "@emotion/core";
-import styled from "@emotion/styled";
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-} from "react";
+import React, { useCallback, useEffect } from "react";
 import { useLocalStorage } from "react-use";
 
 import { render } from "./talkUtils";
@@ -105,7 +100,7 @@ function Introduction() {
     []
   );
   useEffect(() => {
-    const handleKeydown = event => {
+    const handleKeydown = (event: KeyboardEvent) => {
       switch (event.key) {
         case "ArrowLeft":
           goToPrevious();

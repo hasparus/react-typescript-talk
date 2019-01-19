@@ -116,12 +116,10 @@ function getRoot() {
 function getRenderedModuleName() {
   const stack = new Error().stack;
   if (stack) {
-    return stack
-      .match(/src\/(.+\.tsx)/g)[2]
-      .split("/")
-      .pop(); // Array.prototype.pop returns last element of array
+    const matched = (stack.match(/src\/(.+\.tsx)/g) || [])[2];
+    return matched && matched.split("/").pop();
   }
-  return null;
+  return undefined;
 }
 
 export function render(node: React.ReactNode) {
@@ -130,7 +128,7 @@ export function render(node: React.ReactNode) {
     <SlideStylesContainer>
       <Global styles={globalStyles} />
       {node}
-      <ModuleName>{moduleName}</ModuleName>
+      <ModuleName>{moduleName || null}</ModuleName>
     </SlideStylesContainer>,
     getRoot()
   );

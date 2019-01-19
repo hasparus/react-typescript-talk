@@ -10,25 +10,23 @@ import { Assign } from "utility-types";
 
 import { FunToggle, FunToggleProps } from "./components";
 import { render } from "./talkUtils";
-import { ErrorMessage } from "./2.StatefulClass";
 
 // https://reactjs.org/docs/context.html
-
-type FormiqueChildProps<Values = Record<string, any>> = {
+type FormiqueChildProps<Values> = {
   values: Values;
   setValues: React.Dispatch<React.SetStateAction<Values>>;
   handleSubmit: () => void;
 };
 
-type FormStateContextPayload<
-  Values = Record<string, any>
-> = FormiqueChildProps<Values> | undefined;
+type FormStateContextPayload<Values> =
+  | FormiqueChildProps<Values>
+  | undefined;
 
 const FormStateContext = createContext<
-  FormStateContextPayload
+  FormStateContextPayload<unknown>
 >(undefined);
 
-type FormiqueProps<Values = Record<string, any>> = {
+type FormiqueProps<Values> = {
   children: (_: FormiqueChildProps<Values>) => ReactNode;
   initialValues: Values;
   onSubmit: (_: Values) => void;
@@ -107,15 +105,37 @@ class Input<Name extends string> extends React.Component<
   }
 }
 
-const initialFormValues = {
-  meetupTitle: "Wrocław TypeScript #1",
-  isMeetupFun: false,
-};
+interface ToggleProps extends FunToggleProps {
+  name: string;
+}
+function Toggle({ name }: ToggleProps) {
+  const {
+    values: { [name]: value },
+    setValues,
+  } = useContext(FormStateContext)!; // <- notice the "!"
+  // I expect runtime error if Toggle is used outside of Formique
+
+  return (
+    <FunToggle
+      value={value}
+      onChange={newValue =>
+        setValues({
+          [name]: newValue,
+        })
+      }
+    />
+  );
+}
+
+// const initialFormValues = ;
 
 render(
   <div>
     <Formique
-      initialValues={initialFormValues}
+      initialValues={{
+        meetupTitle: "Wrocław TypeScript #1",
+        isMeetupFun: false,
+      }}
       onSubmit={window.alert}
     >
       {({ handleSubmit, values }) => (
@@ -133,27 +153,6 @@ render(
     </Formique>
   </div>
 );
-
-interface ToggleProps extends FunToggleProps {}
-function Toggle({ name }: ToggleProps) {
-  const {
-    values: { [name]: value },
-    setValues,
-  } = useContext(FormStateContext);
-  // Possible additional content:
-  // We can type this better with own useContext.
-
-  return (
-    <FunToggle
-      value={value}
-      onChange={newValue =>
-        setValues({
-          [name]: newValue,
-        })
-      }
-    />
-  );
-}
 
 // Some motivation behind render props by Micheal Jackson,
 // creator of React Router

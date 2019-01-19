@@ -1,0 +1,39 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-config-airbnb",
+    "tslint-sonarts",
+    "tslint-microsoft-contrib",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    // According to Microsoft/TypeScript#10717 the only way to get variance inference to work
+    // is to use the function signature style.
+    "prefer-method-signature": false,
+    // needed for <Args extends any[]>, we still don't want any
+    "no-any": false,
+    "newline-before-return": false,
+    // no-var-requires enabled
+    "no-require-imports": false,
+    "no-relative-imports": false,
+    // "We recommend that you run this rule before each release as a quality checkpoint."
+    "no-console": false,
+    "ordered-imports": [true, { "grouped-imports": true }],
+    "missing-jsdoc": false,
+    "variable-name": [
+      true,
+      "allow-pascal-case",
+      "allow-leading-underscore"
+    ],
+    "typedef": false,
+    "prefer-type-cast": false,
+    "no-angle-bracket-type-assertion": true,
+    "import-name": false,
+    "react-this-binding-issue": false,
+    "export-name": false,
+    "no-namespace": [true, "allow-declarations"],
+    "interface-name": [true, "never-prefix"],
+    "max-union-size": false,
+    "no-suspicious-comment": false // "We recommend that you run this rule before each release as a quality checkpoint."
+  }
+}
