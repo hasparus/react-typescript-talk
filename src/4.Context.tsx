@@ -144,7 +144,7 @@ render(
           </label>
           <label>
             <span>Fun:</span>
-            <Input name="isMeetupFun" />
+            <Toggle name="isMeetupFun" />
           </label>
           <button type="submit">Submit</button>
         </form>
