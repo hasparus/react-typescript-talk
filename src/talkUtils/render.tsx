@@ -47,14 +47,15 @@ const SlideStylesContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
     text-align: right;
 
     span {
       width: 6em;
+      margin-right: 0.5em;
     }
 
     input {
-      margin-left: 0.5em;
       flex: 1;
     }
   }
