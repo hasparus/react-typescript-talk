@@ -36,12 +36,14 @@ class Formique<Values> extends React.PureComponent<
     this.props.onSubmit(this.state);
   };
 
+  handleValuesChange = this.setState.bind(this);
+
   render() {
     const { children } = this.props;
 
     const childProps = {
       values: this.state,
-      setValues: this.setState,
+      setValues: this.handleValuesChange,
       handleSubmit: this.handleSubmit,
     };
 
@@ -98,9 +100,14 @@ class Input<Name extends string> extends React.Component<
   }
 }
 
-interface ToggleProps<Name extends string> extends FunToggleProps {
-  name: Name;
-}
+type ToggleProps<Name extends string> = Assign<
+  FunToggleProps,
+  {
+    name: Name;
+    value?: never;
+    onChange?: never;
+  }
+>;
 function Toggle<
   Name extends string,
   Values extends Record<Name, boolean> = Record<Name, boolean>
@@ -125,8 +132,6 @@ function Toggle<
   );
 }
 
-// const initialFormValues = ;
-
 render(
   <div>
     <Formique
@@ -134,7 +139,7 @@ render(
         meetupTitle: "Wrocław TypeScript #1",
         isMeetupFun: false,
       }}
-      onSubmit={window.alert}
+      onSubmit={console.log}
     >
       {({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>

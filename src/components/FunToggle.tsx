@@ -24,8 +24,6 @@ const Flipper = styled.div`
 
   user-select: none;
 
-  cursor: pointer;
-
   input:checked + & {
     transform: rotateX(180deg);
   }
@@ -82,6 +80,8 @@ export const FunToggle = ({
       css={css`
         border: 1px solid transparent;
         outline: none;
+
+        cursor: pointer;
 
         :hover,
         :focus {
