@@ -1,11 +1,4 @@
-import React, {
-  ReactNode,
-  createContext,
-  useState,
-  useMemo,
-  useCallback,
-  useContext,
-} from "react";
+import React, { ReactNode, createContext, useContext } from "react";
 import { Assign } from "utility-types";
 
 import { FunToggle, FunToggleProps } from "./components";
@@ -14,17 +7,17 @@ import { render } from "./talkUtils";
 // https://reactjs.org/docs/context.html
 type FormiqueChildProps<Values> = {
   values: Values;
-  setValues: React.Dispatch<React.SetStateAction<Values>>;
+  setValues: React.Dispatch<React.SetStateAction<Partial<Values>>>;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 };
 
-type FormStateContextPayload<Values> =
+type FormContextPayload<Values> =
   | FormiqueChildProps<Values>
   | undefined;
 
-const FormStateContext = createContext<
-  FormStateContextPayload<unknown>
->(undefined);
+const FormStateContext = createContext<FormContextPayload<unknown>>(
+  undefined
+);
 
 type FormiqueProps<Values> = {
   children: (_: FormiqueChildProps<Values>) => ReactNode;
@@ -33,37 +26,33 @@ type FormiqueProps<Values> = {
 };
 
 // Formik: https://github.com/jaredpalmer/formik
-function Formique<Values>({
-  children,
-  initialValues,
-  onSubmit,
-}: FormiqueProps<Values>) {
-  const [values, setValues] = useState(initialValues);
+class Formique<Values> extends React.PureComponent<
+  FormiqueProps<Values>
+> {
+  state = this.props.initialValues;
 
-  const handleSubmit = useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      onSubmit(values);
-    },
-    [values]
-  );
+  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    this.props.onSubmit(this.state);
+  };
 
-  const childProps = useMemo(
-    () => ({
-      values,
-      setValues,
-      handleSubmit,
-    }),
-    [values]
-  );
+  render() {
+    const { children } = this.props;
 
-  const { Provider } = FormStateContext as React.Context<
-    FormStateContextPayload<Values>
-  >;
+    const childProps = {
+      values: this.state,
+      setValues: this.setState,
+      handleSubmit: this.handleSubmit,
+    };
 
-  return (
-    <Provider value={childProps}>{children(childProps)}</Provider>
-  );
+    const { Provider } = FormStateContext as React.Context<
+      FormContextPayload<Values>
+    >;
+
+    return (
+      <Provider value={childProps}>{children(childProps)}</Provider>
+    );
+  }
 }
 
 // Much shorter than Props = React.DetailedHTMLProps<
@@ -120,7 +109,7 @@ function Toggle<
     values: { [name]: value },
     setValues,
   } = useContext(FormStateContext as React.Context<
-    FormStateContextPayload<Values>
+    FormContextPayload<Values>
   >)!; // <- notice the "!"
   // I expect runtime error if Toggle is used outside of Formique
 
@@ -130,7 +119,7 @@ function Toggle<
       onChange={newValue =>
         setValues({
           [name]: newValue,
-        })
+        } as Partial<Values>)
       }
     />
   );
@@ -147,7 +136,7 @@ render(
       }}
       onSubmit={window.alert}
     >
-      {({ handleSubmit, values }) => (
+      {({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <label>
             <span>Meetup:</span>
