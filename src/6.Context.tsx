@@ -85,29 +85,20 @@ class Input<Name extends string> extends React.Component<
   };
 
   render() {
-    const { name } = this.props;
+    const { name, ...rest } = this.props;
     const {
       values: { [name]: value },
     } = this.context;
 
     return (
-      <input
-        {...this.props}
-        value={value}
-        onChange={this.handleChange}
-      />
+      <input {...rest} value={value} onChange={this.handleChange} />
     );
   }
 }
 
-type ToggleProps<Name extends string> = Assign<
-  FunToggleProps,
-  {
-    name: Name;
-    value?: never;
-    onChange?: never;
-  }
->;
+type ToggleProps<Name extends string> = {
+  name: Name;
+};
 function Toggle<
   Name extends string,
   Values extends Record<Name, boolean> = Record<Name, boolean>

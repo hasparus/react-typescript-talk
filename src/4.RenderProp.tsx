@@ -18,7 +18,7 @@ type State = {
   mousePosition?: PointerPosition;
 };
 
-class PointerProvider extends React.Component<Props, State> {
+export class PointerProvider extends React.Component<Props, State> {
   state: State = {};
 
   componentDidMount() {
