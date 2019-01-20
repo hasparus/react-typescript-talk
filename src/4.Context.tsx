@@ -15,7 +15,7 @@ import { render } from "./talkUtils";
 type FormiqueChildProps<Values> = {
   values: Values;
   setValues: React.Dispatch<React.SetStateAction<Values>>;
-  handleSubmit: () => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 };
 
 type FormStateContextPayload<Values> =
@@ -41,7 +41,7 @@ function Formique<Values>({
   const [values, setValues] = useState(initialValues);
 
   const handleSubmit = useCallback(
-    event => {
+    (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       onSubmit(values);
     },
@@ -57,10 +57,12 @@ function Formique<Values>({
     [values]
   );
 
+  const { Provider } = FormStateContext as React.Context<
+    FormStateContextPayload<Values>
+  >;
+
   return (
-    <FormStateContext.Provider value={childProps}>
-      {children(childProps)}
-    </FormStateContext.Provider>
+    <Provider value={childProps}>{children(childProps)}</Provider>
   );
 }
 
@@ -83,9 +85,7 @@ class Input<Name extends string> extends React.Component<
   //context!: React.ContextType<typeof FormStateContext>;
   context!: FormiqueChildProps<{ [key in Name]: string }>;
 
-  handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = this.props;
 
     this.context.setValues({
@@ -109,14 +109,19 @@ class Input<Name extends string> extends React.Component<
   }
 }
 
-interface ToggleProps extends FunToggleProps {
-  name: string;
+interface ToggleProps<Name extends string> extends FunToggleProps {
+  name: Name;
 }
-function Toggle({ name }: ToggleProps) {
+function Toggle<
+  Name extends string,
+  Values extends Record<Name, boolean> = Record<Name, boolean>
+>({ name }: ToggleProps<Name>) {
   const {
     values: { [name]: value },
     setValues,
-  } = useContext(FormStateContext)!; // <- notice the "!"
+  } = useContext(FormStateContext as React.Context<
+    FormStateContextPayload<Values>
+  >)!; // <- notice the "!"
   // I expect runtime error if Toggle is used outside of Formique
 
   return (
