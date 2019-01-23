@@ -9,10 +9,7 @@ interface HelloProps {
   whoAmI?: string;
 }
 
-export const Hello: React.FC<HelloProps> = ({
-  handle,
-  whoAmI,
-}) => (
+export const Hello: React.FC<HelloProps> = ({ handle, whoAmI }) => (
   <article>
     <h1>Hello! 👋</h1>
     <p>
@@ -23,9 +20,7 @@ export const Hello: React.FC<HelloProps> = ({
     <ul>
       {socialSites.map(social => (
         <li key={social}>
-          <a href={`https://${social}.com/${handle}`}>
-            {social}
-          </a>
+          <a href={`https://${social}.com/${handle}`}>{social}</a>
         </li>
       ))}
     </ul>

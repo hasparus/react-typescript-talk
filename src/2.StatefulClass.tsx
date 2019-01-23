@@ -1,5 +1,7 @@
 import React from "react";
+
 import { render } from "./talkUtils";
+import { ErrorMessage } from "./components";
 
 type Props = {
   onSubmit: (_: SimpleUser) => void;
@@ -12,10 +14,7 @@ type SimpleUser = {
 
 type State = SimpleUser;
 
-export class LoginForm extends React.Component<
-  Props,
-  State
-> {
+export class LoginForm extends React.Component<Props, State> {
   state = {
     name: "",
     email: "",
@@ -23,9 +22,7 @@ export class LoginForm extends React.Component<
 
   error: string | null;
 
-  handleNameChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ name: event.target.value });
   };
 
@@ -68,10 +65,7 @@ export class LoginForm extends React.Component<
         </label>
         <label>
           <span>Email:</span>
-          <input
-            value={email}
-            onChange={this.handleEmailChange}
-          />
+          <input value={email} onChange={this.handleEmailChange} />
         </label>
         <button type="submit">Submit</button>
       </form>
@@ -84,25 +78,6 @@ render(<LoginForm onSubmit={console.log} />);
 /* 
   code below would be in different files 
 */
-
-// ErrorMessage.tsx
-export function ErrorMessage({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <p
-      style={{
-        color: "red",
-        height: "2em",
-        maxWidth: "100%",
-      }}
-    >
-      {children}
-    </p>
-  );
-}
 
 // Email.ts
 

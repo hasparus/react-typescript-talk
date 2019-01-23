@@ -128,9 +128,9 @@ const Sun = ({ isMoving }: SunProps) => (
       fontSize: "50px",
       lineHeight: 1,
       transformOrigin: "center",
-      transform: `translate3d(-50%, -50%, 0) ${
-        isMoving ? "" : `rotateZ(${Math.random() * 360}deg)`
-      }`,
+      // transform: `translate3d(-50%, -50%, 0) ${
+      // isMoving ? "" : `rotateZ(${Math.random() * 360}deg)`
+      // }`,
     }}
   >
     🌞

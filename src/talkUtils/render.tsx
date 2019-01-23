@@ -71,6 +71,10 @@ const SlideStylesContainer = styled.div`
       background: ${Color.SuperLightGray};
       border-radius: 5px 5px 0 0;
     }
+    ::placeholder {
+      font-style: italic;
+      color: ${Color.LightGray};
+    }
   }
   button {
     background: ${Color.SuperLightGray};

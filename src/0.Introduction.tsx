@@ -7,7 +7,7 @@ import { render } from "./talkUtils";
 import { Hello } from "./1.StatelessComponent";
 import { UnsplashImg, TypeScriptLogo } from "./components";
 
-// *Open this one in separate full screen tab.*
+// IMPORTANT *Open this one in separate full screen tab.*
 // I don't want to show hooks before talking about stateless components.
 // And text in the code will actually spoil the talk.
 
@@ -19,9 +19,7 @@ type AnchorProps = React.DetailedHTMLProps<
 >;
 
 type ArrowProps = Omit<AnchorProps, "href"> &
-  (
-    | { left: true; right?: never }
-    | { right: true; left?: never });
+  ({ left: true; right?: never } | { right: true; left?: never });
 
 const Arrow = ({ left, right: _, ...rest }: ArrowProps) => (
   <a
@@ -51,10 +49,7 @@ const steps = [
   <Hello />,
   "Why do I use TypeScript?",
   <h1>Feelings</h1>,
-  <UnsplashImg
-    id="AkTBCrrX0dI"
-    photographer="abi ismail"
-  />,
+  <UnsplashImg id="AkTBCrrX0dI" photographer="abi ismail" />,
   <UnsplashImg id="Ju-ITc1Cc0w" photographer="J W" />,
   <div
     css={{
@@ -72,26 +67,15 @@ const steps = [
       }}
     />
   </div>,
-  <UnsplashImg
-    id="sRL3k5jo9OQ"
-    photographer="Brandon Zack"
-  />,
+  <UnsplashImg id="sRL3k5jo9OQ" photographer="Brandon Zack" />,
 ];
-const mod = (x: number) =>
-  (x + steps.length) % steps.length;
+const mod = (x: number) => (x + steps.length) % steps.length;
 
 function Introduction() {
   const [step, setStep] = useLocalStorage("step", 0);
-  const goToNext = useCallback(
-    () => setStep(x => mod(x + 1)),
-    []
-  );
+  const goToNext = useCallback(() => setStep(x => mod(x + 1)), []);
   const goToPrevious = useCallback(
-    () =>
-      setStep(x => {
-        console.log(mod(x - 1));
-        return mod(x - 1);
-      }),
+    () => setStep(x => mod(x - 1)),
     []
   );
   const handleInputValueChange = useCallback(
@@ -118,10 +102,7 @@ function Introduction() {
     document.addEventListener("keydown", handleKeydown);
 
     return () => {
-      document.removeEventListener(
-        "keydown",
-        handleKeydown
-      );
+      document.removeEventListener("keydown", handleKeydown);
     };
   }, []);
 
