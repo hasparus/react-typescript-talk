@@ -64,18 +64,30 @@ const withCounter = <P extends InjectedCounterProps>(
     }
   };
 
-const Counter = withCounter(({ value, onDecrement, onIncrement }) => (
+type DumbCounterProps = {
+  color?: string;
+} & InjectedCounterProps;
+
+const DumbCounter = ({
+  value,
+  onDecrement,
+  onIncrement,
+  color,
+}: DumbCounterProps) => (
   <div>
     <button onClick={onDecrement}>-</button>
     <span
       style={{
         padding: "0 1em",
+        color: color,
       }}
     >
       {value}
     </span>
     <button onClick={onIncrement}>+</button>
   </div>
-));
+);
+
+const Counter = withCounter(DumbCounter);
 
 render(<Counter minValue={0} maxValue={5} />);

@@ -1,10 +1,7 @@
-import React, {
-  useState,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useState, useCallback, useMemo } from "react";
+
 import { render } from "./talkUtils";
-import { ErrorMessage } from "./2.StatefulClass";
+import { ErrorMessage } from "./components";
 
 type Props = {
   onSubmit: (_: SimpleUser) => void;
