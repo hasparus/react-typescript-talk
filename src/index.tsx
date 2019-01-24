@@ -4,7 +4,12 @@ import { render } from "./talkUtils";
 function Hello() {
   return (
     <article>
-      <h1>Use Current Module View 😉</h1>
+      <h1>Get Ready</h1>
+      <ul>
+        <li>Shades of Purple&nbsp;🎨</li>
+        <li>Font Size 22 & Zoom 150% 🔎</li>
+        <li>Zen Mode 👨‍🦲</li>
+      </ul>
     </article>
   );
 }

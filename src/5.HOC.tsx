@@ -72,14 +72,14 @@ const DumbCounter = ({
   value,
   onDecrement,
   onIncrement,
-  color,
+  color = "black",
 }: DumbCounterProps) => (
   <div>
     <button onClick={onDecrement}>-</button>
     <span
       style={{
+        color,
         padding: "0 1em",
-        color: color,
       }}
     >
       {value}
