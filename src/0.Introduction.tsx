@@ -5,7 +5,16 @@ import { useLocalStorage } from "react-use";
 
 import { render } from "./talkUtils";
 import { Hello } from "./1.StatelessComponent";
-import { UnsplashImg, TypeScriptLogo } from "./components";
+import {
+  UnsplashImg,
+  TypeScriptLogo,
+  FitScreenWidthBox,
+  Color,
+  tweetScreenshot,
+} from "./stuff";
+
+const WIDTH = 1200;
+const HEIGHT = 700;
 
 // IMPORTANT *Open this one in separate full screen tab.*
 // I don't want to show hooks before talking about stateless components.
@@ -51,22 +60,35 @@ const steps = [
   <h1>Feelings</h1>,
   <UnsplashImg id="AkTBCrrX0dI" photographer="abi ismail" />,
   <UnsplashImg id="Ju-ITc1Cc0w" photographer="J W" />,
-  <div
-    css={{
-      position: "relative",
-    }}
-  >
+  <div css={{ position: "relative" }}>
     <UnsplashImg id="Ju-ITc1Cc0w" photographer="J W" />
     <TypeScriptLogo
       css={{
         position: "absolute",
         top: "52%",
-        width: "calc(100vw / 1200 * 80)",
+        width: `calc(100vw / ${WIDTH} * 80)`,
         maxWidth: "80px",
         left: "55%",
       }}
     />
   </div>,
+  <FitScreenWidthBox
+    width={WIDTH}
+    height={HEIGHT}
+    css={{ background: "black" }}
+  >
+    <iframe
+      src="https://embed.ted.com/talks/mihaly_csikszentmihalyi_on_flow"
+      css={css`
+        width: 100%;
+        height: 100%;
+      `}
+      frameBorder="0"
+      scrolling="no"
+      allowFullScreen
+    />
+  </FitScreenWidthBox>,
+  <img src={tweetScreenshot} width={400} />,
   <UnsplashImg id="sRL3k5jo9OQ" photographer="Brandon Zack" />,
 ];
 const mod = (x: number) => (x + steps.length) % steps.length;

@@ -1,7 +1,7 @@
 import React, { ReactNode, createContext, useContext } from "react";
 import { Assign } from "utility-types";
 
-import { FunToggle, FunToggleProps } from "./components";
+import { FunToggle, FunToggleProps } from "./stuff";
 import { render } from "./talkUtils";
 
 // https://reactjs.org/docs/context.html

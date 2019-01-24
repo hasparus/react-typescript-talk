@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { Color } from "../components";
+import { Color } from "../stuff";
 
 const globalStyles = css`
   html,
@@ -41,6 +41,7 @@ const SlideStylesContainer = styled.div`
   }
   li {
     padding: 0.5em 0;
+    overflow-x: visible;
   }
   label {
     padding: 0.5em;

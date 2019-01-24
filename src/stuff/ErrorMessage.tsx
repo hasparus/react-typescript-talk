@@ -1,4 +1,3 @@
-import { css, jsx } from "@emotion/core";
 import React from "react";
 
 export function ErrorMessage({
@@ -8,7 +7,7 @@ export function ErrorMessage({
 }) {
   return (
     <p
-      css={{
+      style={{
         color: "red",
         height: "2em",
         maxWidth: "100%",

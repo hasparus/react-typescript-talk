@@ -4,3 +4,8 @@ declare module "react-use" {
     initialValue: T
   ): [T, React.Dispatch<React.SetStateAction<T>>];
 }
+
+declare module "*.jpg" {
+  const src: string;
+  export default src;
+}

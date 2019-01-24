@@ -1,7 +1,7 @@
 import React from "react";
 
 import { render } from "./talkUtils";
-import { ErrorMessage } from "./components";
+import { ErrorMessage } from "./stuff";
 
 type Props = {
   onSubmit: (_: SimpleUser) => void;
@@ -23,7 +23,9 @@ export class LoginForm extends React.Component<Props, State> {
   error: string | null;
 
   handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ name: event.target.value });
+    this.setState({
+      name: event.target.value,
+    });
   };
 
   handleEmailChange: React.ChangeEventHandler<
@@ -81,7 +83,9 @@ render(<LoginForm onSubmit={console.log} />);
 
 // Email.ts
 
-type Brand<T, B extends string> = T & { __brand: B };
+type Brand<T, B extends string> = T & {
+  __brand: B;
+};
 
 type Email = Brand<string, "Email">;
 

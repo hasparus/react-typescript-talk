@@ -3,6 +3,7 @@ import { css, jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import React, { useRef, useEffect } from "react";
 
+import { FitScreenWidthBox } from "./FitScreenWidthBox";
 import { Color } from "./color";
 
 // Workaround. Jsx gets thrown out if used only in pragma :>
@@ -46,13 +47,11 @@ export const UnsplashImg: React.FunctionComponent<
         alignItems: "center",
       }}
     >
-      <div
+      <FitScreenWidthBox
+        width={Number(width)}
+        height={Number(height)}
         css={{
-          width,
-          height: `calc(100vw / ${width} * ${height})`,
           background: Color.SuperLightGray,
-          maxWidth: "100vw",
-          maxHeight: height,
         }}
       >
         <img
@@ -63,7 +62,7 @@ export const UnsplashImg: React.FunctionComponent<
           }}
           {...rest}
         />
-      </div>
+      </FitScreenWidthBox>
       <small
         css={{
           paddingTop: "0.5em",
