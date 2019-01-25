@@ -55,16 +55,14 @@ export class PointerProvider extends React.Component<Props, State> {
 
 render(
   <PointerProvider>
-    {pointerPosition => (
+    {pointerPos => (
       <Stage>
-        <Spring to={pointerPosition} config={config.gentle}>
+        <Spring to={pointerPos} config={config.gentle}>
           {({ x, y }) => (
             <SolarSystem
               x={x}
               y={y}
-              isMoving={
-                pointerPosition.x !== x || pointerPosition.y !== y
-              }
+              isMoving={pointerPos.x !== x || pointerPos.y !== y}
             >
               <Earth />
             </SolarSystem>
@@ -128,13 +126,26 @@ const Sun = ({ isMoving }: SunProps) => (
       fontSize: "50px",
       lineHeight: 1,
       transformOrigin: "center",
-      // transform: `translate3d(-50%, -50%, 0) ${
-      // isMoving ? "" : `rotateZ(${Math.random() * 360}deg)`
-      // }`,
+      position: "relative",
     }}
   >
     🌞
+    <SunGlow opacity={isMoving ? 0 : 1} />
   </div>
+);
+
+const SunGlow = ({ opacity }: { opacity: number }) => (
+  <div
+    style={{
+      opacity,
+      position: "absolute",
+      width: 40,
+      height: 40,
+      borderRadius: "50%",
+      boxShadow: "0 0 100px rgba(255, 205, 0, 0.5)",
+      transition: "opacity 1s ease-in",
+    }}
+  />
 );
 
 const orbit = keyframes`
