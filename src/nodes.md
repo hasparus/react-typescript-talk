@@ -21,14 +21,10 @@ who's been using TypeScript for some time.
 Do you remember what `Omit` used to look like before TS 2.8?
 
 ```ts
-type Diff<T extends string, U extends string> = ({
-  [P in T]: P
-} &
+type Diff<T extends string, U extends string> = ({ [P in T]: P } &
   { [P in U]: never } & { [x: string]: never })[T];
 
-type Omit<T, K extends keyof T> = {
-  [P in Diff<keyof T, K>]: T[P]
-};
+type Omit<T, K extends keyof T> = { [P in Diff<keyof T, K>]: T[P] };
 ```
 
 I was so happy when I found it.
@@ -115,3 +111,8 @@ Whenever I feel type alias is right, I'll go with `type` alias,
 when I want to create new type name and hide some details, I'll choose
 `interface`.
 I mix this a lot in this project, because I'd like to provoke questions.
+
+# Why you may not need TypeScript (that much) with React
+
+- React Components have really straightforward interface. They take **props** and return **elements**.
+- PropTypes are acceptable way of typechecking components.

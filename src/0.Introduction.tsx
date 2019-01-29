@@ -9,9 +9,8 @@ import {
   UnsplashImg,
   TypeScriptLogo,
   FitScreenWidthBox,
-  Color,
   tweetScreenshot,
-  LackOfTypesImg,
+  // LackOfTypesImg,
 } from "./stuff";
 
 const WIDTH = 1200;
@@ -58,7 +57,6 @@ const Arrow = ({ left, right: _, ...rest }: ArrowProps) => (
 const steps = [
   <Hello />,
   "Why do I use TypeScript?",
-  <LackOfTypesImg />,
   <h1>Feelings</h1>,
   <UnsplashImg id="AkTBCrrX0dI" photographer="abi ismail" />,
   <UnsplashImg id="Ju-ITc1Cc0w" photographer="J W" />,
