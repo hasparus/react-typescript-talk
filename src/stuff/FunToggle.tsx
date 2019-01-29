@@ -4,8 +4,6 @@ import styled from "@emotion/styled";
 import React, { useMemo } from "react";
 import { Omit } from "utility-types";
 
-import { render } from "../talkUtils";
-
 import { Color } from "./color";
 
 const Flipper = styled.div`

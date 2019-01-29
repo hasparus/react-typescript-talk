@@ -20,7 +20,7 @@ export class LoginForm extends React.Component<Props, State> {
     email: "",
   };
 
-  error: string | null;
+  error: string | null = null;
 
   handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({

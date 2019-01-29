@@ -1,7 +1,6 @@
 import React from "react";
 import { Subtract } from "utility-types";
 
-import { PointerProvider } from "./4.RenderProp";
 import { render } from "./talkUtils";
 
 export interface InjectedCounterProps {
@@ -53,6 +52,7 @@ const withCounter = <P extends InjectedCounterProps>(
     render() {
       const { minValue, maxValue, ...props } = this
         .props as MakeCounterProps;
+
       return (
         <Component
           {...props}

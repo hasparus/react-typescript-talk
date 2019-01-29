@@ -3,16 +3,14 @@ import React, { useState, useCallback, useMemo } from "react";
 import { render } from "./talkUtils";
 import { ErrorMessage } from "./stuff";
 
-type Props = {
-  onSubmit: (_: SimpleUser) => void;
-};
-
 type SimpleUser = {
   name: string;
   email: string;
 };
 
-type State = SimpleUser;
+type Props = {
+  onSubmit: (_: SimpleUser) => void;
+};
 
 export function LoginForm({ onSubmit }: Props) {
   const [name, setName] = useState("");
