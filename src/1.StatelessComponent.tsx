@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { render } from "./talkUtils";
 
-const socialSites = ["twitter", "github", "facebook"];
+const socialSites = ["twitter", "github"];
 
 interface HelloProps {
   handle?: string;
