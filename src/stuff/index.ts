@@ -5,4 +5,5 @@ export * from "./color";
 export * from "./ErrorMessage";
 export * from "./FitScreenWidthBox";
 export * from "./LackOfTypesImg";
+export { default as whyUseReactPic } from "./whyUseReact.png";
 export { default as tweetScreenshot } from "./tweetScreenshot.jpg";

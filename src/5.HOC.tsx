@@ -64,9 +64,9 @@ const withCounter = <P extends InjectedCounterProps>(
     }
   };
 
-type DumbCounterProps = {
+interface DumbCounterProps extends InjectedCounterProps {
   color?: string;
-} & InjectedCounterProps;
+}
 
 const DumbCounter = ({
   value,
