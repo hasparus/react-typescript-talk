@@ -10,6 +10,7 @@ import {
   TypeScriptLogo,
   FitScreenWidthBox,
   tweetScreenshot,
+  whyUseReactPic,
   // LackOfTypesImg,
 } from "./stuff";
 
@@ -90,6 +91,7 @@ const steps = [
   </FitScreenWidthBox>,
   <img src={tweetScreenshot} width={400} />,
   <UnsplashImg id="sRL3k5jo9OQ" photographer="Brandon Zack" />,
+  <img src={whyUseReactPic} width={600} />,
 ];
 const mod = (x: number) => (x + steps.length) % steps.length;
 

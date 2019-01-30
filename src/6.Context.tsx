@@ -57,9 +57,6 @@ class Formique<Values> extends React.PureComponent<
   }
 }
 
-// Much shorter than Props = React.DetailedHTMLProps<
-//   React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement
-// >
 type InputProps<Name> = Assign<
   React.ComponentProps<"input">, // <- this one rocks, mention it
   {
@@ -140,7 +137,7 @@ render(
           </label>
           <label>
             <span>Fun:</span>
-            <Toggle name="isMeetupFun" />
+            <Toggle<FormValues> name="isMeetupFun" />
           </label>
           <button type="submit">Submit</button>
         </form>
@@ -155,3 +152,10 @@ render(
 
 // https://github.com/facebook/react/issues/14099
 // useCallback() invalidates too often in practice
+
+const initialFormValues = {
+  meetupTitle: "Wrocław TypeScript #1",
+  isMeetupFun: false,
+};
+
+type FormValues = typeof initialFormValues;
