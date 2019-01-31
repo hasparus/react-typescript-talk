@@ -137,7 +137,7 @@ render(
           </label>
           <label>
             <span>Fun:</span>
-            <Toggle<FormValues> name="isMeetupFun" />
+            <Toggle name="isMeetupFun" />
           </label>
           <button type="submit">Submit</button>
         </form>

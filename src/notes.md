@@ -1,23 +1,3 @@
-Why use TypeScript? (umbrella pics)
-
-- because of feelings. "Feelings"
-- WTF Feelings bro?
-- because it feels bad to have bugs
-- (inverse umbrella pic)
-- and it feels great to have someone taking care of you
-- (girls umbrella pic)... having your back
-- It feels great to get into the FLOW state.
-- - To be at the top of your productivity. To do your best.
-
----
-
-SHOULD I DO IT AT ALL? IT'S LIKE 10 MINUTES AT LEAST
-
-Time for a little throwback.
-
-I've got a question to all you folks,
-who's been using TypeScript for some time.
-
 Do you remember what `Omit` used to look like before TS 2.8?
 
 ```ts
@@ -116,3 +96,5 @@ I mix this a lot in this project, because I'd like to provoke questions.
 
 - React Components have really straightforward interface. They take **props** and return **elements**.
 - PropTypes are acceptable way of typechecking components.
+
+# But your experience will be much better.
